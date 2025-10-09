@@ -1,0 +1,63 @@
+# 🔐 Secrets and credentials
+.secrets.toml
+*.env
+.env.*
+config.toml
+*.key
+*.pem
+
+# 🧪 Local test data and results
+*.xlsx
+*.csv
+*.db
+*.sqlite
+*.log
+*.bak
+*.tmp
+assets/sample_sheets/*
+data/*
+!data/answer_key.json  # Keep the public answer key if needed
+
+# 🧠 Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# 🧪 Virtual environments
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# 📦 Package artifacts
+*.egg
+*.egg-info/
+dist/
+build/
+
+# 🧰 IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 📸 Image cache and overlays
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+
+# 📄 Streamlit cache
+.streamlit/config.toml
+.streamlit/secrets.toml
+.streamlit/*.json
+.streamlit/*.lock
+
+# 🚀 Deployment artifacts
+Dockerfile
+*.tar.gz
+*.zip

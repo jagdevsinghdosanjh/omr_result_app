@@ -1,0 +1,38 @@
+# 🧠 School Identity
+school_name: "Government High School Chananke"
+admin_email: "jagdevsinghdosanjh@gmail.com"
+
+# 🎓 Grading Configuration
+grading_scheme: "weighted"  # Options: standard, weighted, adaptive
+leaderboard_limit: 10       # Number of top scorers to display
+
+# 🧮 Subject Weights (used if grading_scheme is 'weighted')
+subject_weights:
+  Punjabi: 1.0
+  Math: 1.5
+  Science: 1.2
+  SST: 1.0
+  English: 1.3
+  General: 0.8
+
+# 📊 Question Configuration
+expected_questions: 108
+subject_question_counts:
+  Punjabi: 18
+  Math: 18
+  Science: 18
+  SST: 18
+  English: 18
+  General: 18
+
+# 🏆 Badge Celebration Themes
+badge_theme: "constellation"  # Options: constellation, ripple, legacy, remix
+
+# 📦 Export Settings
+export_filename: "class_results.xlsx"
+include_timestamp: true
+
+# 🧑‍🏫 Admin Panel Modules
+enable_feedback_module: true
+enable_remix_tracker: true
+enable_badge_recommender: true
