@@ -14,5 +14,5 @@ def load_parameters(uploaded_file=None):
     return {
         "school_name": "Unnamed School",
         "grading_scheme": "standard",
-        "leaderboard_limit": 10
+        "leaderboard_limit": 50
     }

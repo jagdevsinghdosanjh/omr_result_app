@@ -1,5 +1,6 @@
-﻿# OCR logic for metadata extraction
-import pytesseract
+﻿import pytesseract
+import re
+import cv2
 
 # Explicit fallback path for Windows systems
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -7,15 +8,34 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 def extract_metadata(img):
     """
     Extracts student name and roll number from a decoded OpenCV image.
+    Focuses on top region and uses flexible regex matching.
     Returns a dictionary with metadata.
     """
-    text = pytesseract.image_to_string(img)
+    # Crop top region for OCR focus
+    header_crop = img[0:250, :]  # Top 250 pixels
+    gray = cv2.cvtColor(header_crop, cv2.COLOR_BGR2GRAY)
+    text = pytesseract.image_to_string(gray)
 
-    name = roll_no = ""
-    for line in text.split("\n"):
-        if "Name" in line:
-            name = line.split(":")[-1].strip()
-        elif "Roll" in line:
-            roll_no = line.split(":")[-1].strip()
+    name = ""
+    roll_no = ""
 
+    # Normalize and split lines
+    lines = [line.strip() for line in text.split("\n") if line.strip()]
+    for line in lines:
+        # Match variations like "Name: XYZ", "Student Name - XYZ", "Name XYZ"
+        name_match = re.search(r"(Name|Student Name)[:\-]?\s*([A-Z\s]{3,})", line, re.IGNORECASE)
+        roll_match = re.search(r"(Roll\s*No|Roll Number)[:\-]?\s*(\d{1,6})", line, re.IGNORECASE)
+
+        if name_match and not name:
+            name = name_match.group(2).strip()
+        if roll_match and not roll_no:
+            roll_no = roll_match.group(2).strip()
+
+    # Fallback if not found
+    if not name:
+        name = "Unknown"
+    if not roll_no:
+        roll_no = "0000"
+
+    print(f"📋 OCR Extracted — Name: {name}, Roll No: {roll_no}")
     return {"name": name, "roll_no": roll_no}
